@@ -1,6 +1,16 @@
 # README
 
-## prepare lab
+## Prepare environment
+
+create technical user
+
+add technical user to libvirt group 
+
+```shell
+usermod -aG libvirt %%
+```
+
+## Prepare lab
 
 run ansible:
 
