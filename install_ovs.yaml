@@ -1,0 +1,28 @@
+---
+- name: Instal and enable Open VSwitch
+  hosts: lab_main
+  remote_user: worker_01
+
+  tasks:
+  - name: Install Open VSwitch
+    become: true
+    community.general.zypper:
+      type: package  
+      name: openvswitch
+      state: present
+  - name: Enable Open VSwitch service
+    become: true
+    ansible.builtin.systemd_service:
+      name: openvswitch 
+      state: started
+      enabled: true
+- name: Create and config bridge interface for QEMU
+  hosts: lab_main
+  remote_user: worker_01
+
+  tasks:
+  - name: create new bridge interface
+    become: true
+    openvswitch.openvswitch.openvswitch_bridge:
+      bridge: br01
+      state: present
